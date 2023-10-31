@@ -1,21 +1,21 @@
 <template>
     <div class="main-page">
-        <Header/>
-        <TaskM/>
+        <HeaderPage/>
+        <slot></slot>
         <Footer/>
+
     </div>
   </template>
   
   <script>
-  import TaskM from './TaskM.vue';
+  import HeaderPage from './HeaderPage.vue';
   import Footer from './Footer.vue';
-  import Header from './Header.vue'
+ 
   export default {
     name: 'MainPage',
     components: {
-      TaskM,
-        Footer,
-        Header
+      HeaderPage,
+      Footer,
     }
   };
   </script>

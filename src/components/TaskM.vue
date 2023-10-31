@@ -3,10 +3,12 @@
 	<main class="task">
 		
 		<section class="greeting">
-			<h2 class="title">
-				What's up, <input type="text" id="name" placeholder="Name here" v-model="name">
-			</h2>
-		</section>
+            <h2 class="title">
+                What's up,<input v-if="!isAuthenticated" type="text" id="name" placeholder="Name here" v-model="name" />
+                <span v-if="isAuthenticated">{{ user.name }}</span>
+            </h2>
+            <h3 v-if="isAuthenticated">User profile: {{ user.email }}</h3>
+        </section>
 
 		<section class="create-todo">
 			<h3>CREATE A TODO</h3>
@@ -82,6 +84,7 @@
 
 <script>
 import { ref, onMounted, computed, watch } from 'vue';
+import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
   setup() {
@@ -90,6 +93,8 @@ export default {
 
     const input_content = ref('');
     const input_category = ref(null);
+
+	const { isAuthenticated, user } = useAuth0();
 
     const todos_asc = computed(() => {
     return [...todos.value].sort((a, b) => {
@@ -135,6 +140,8 @@ export default {
     });
 
     return {
+		isAuthenticated,
+		user,
       todos,
       name,
       input_content,
@@ -146,4 +153,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.title{
+	gap: 5px;
+}
+</style>
 
