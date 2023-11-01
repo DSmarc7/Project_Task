@@ -52,12 +52,31 @@
 				<input type="submit" value="Add todo" />
 			</form>
 		</section>
+		<section class="filter-sort-section">
+      <label for="filter-status">Filter by Status:</label>
+      <select v-model="filterStatus" id="filter-status">
+        <option value="all">All</option>
+        <option value="to-do">To Do</option>
+        <option value="completed">Completed</option>
+      </select>
+
+      <label for="sort-by">Sort by:</label>
+      <select v-model="sortBy" id="sort-by">
+        <option value="date">Date</option>
+        <option value="priority">Priority</option>
+      </select>
+    </section>
 
 		<section class="todo-list">
 			<h3>TODO LIST</h3>
 			<div class="list" id="todo-list">
+				
 
-				<div v-for="todo in todos_asc" :key="todo.createdAt" :class="{ 'todo-item': true, 'done': todo.done }">
+				<div
+          v-for="todo in filteredAndSortedTodos"
+          :key="todo.createdAt"
+          :class="{ 'todo-item': true, 'done': todo.done }"
+        >
 					<label>
 						<input type="checkbox" v-model="todo.done" />
 						<span :class="`bubble ${
@@ -76,10 +95,22 @@
 					</div>
 				</div>
 
-			</div>
+				</div>
+
+
 		</section>
 
-	</main>
+		<section class="task-history">
+      <h3>TASK HISTORY</h3>
+      <div v-for="todo in completedTasks" :key="todo.createdAt">
+        <span>{{ todo.content }}</span>
+        <span>
+          Completed on: {{ new Date(todo.createdAt).toLocaleString() }}
+        </span>
+      </div>
+    </section>
+  </main>
+
 </template>
 
 <script>
@@ -103,6 +134,38 @@ export default {
         return timeA - timeB;
     });
 });
+
+const filterStatus = ref("all");
+    const sortBy = ref("date");
+
+    const filteredTodos = computed(() => {
+      switch (filterStatus.value) {
+        case "to-do":
+          return todos.value.filter((t) => !t.done);
+        case "completed":
+          return todos.value.filter((t) => t.done);
+        default:
+          return todos.value;
+      }
+    });
+
+    const filteredAndSortedTodos = computed(() => {
+      const sortedTodos = [...filteredTodos.value];
+      if (sortBy.value === "priority") {
+        // Placeholder logic: You'll need to adjust based on how you're determining task priority.
+        sortedTodos.sort((a, b) => (a.priority > b.priority ? 1 : -1));
+      } else {
+        sortedTodos.sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+      }
+      return sortedTodos;
+    });
+
+    const completedTasks = computed(() => {
+      return todos.value.filter((t) => t.done);
+    });
+
 
 
 
@@ -149,6 +212,10 @@ export default {
       todos_asc,
       addTodo,
       removeTodo,
+	filterStatus,
+      sortBy,
+      filteredAndSortedTodos,
+      completedTasks,
     };
   },
 };
@@ -157,6 +224,14 @@ export default {
 <style scoped>
 .title{
 	gap: 5px;
+}
+.filter-sort-section{
+	padding-left: 5px;
+	gap: 5px;
+	font-size: 15px;
+}
+#filter-status{
+	padding-left: 5px;
 }
 </style>
 

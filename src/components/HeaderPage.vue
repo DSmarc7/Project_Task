@@ -33,7 +33,7 @@ export default {
     BaseButton,
   },
   setup() {
-    const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+    const {loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
     return {
       isAuthenticated,
