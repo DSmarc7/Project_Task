@@ -27,7 +27,7 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-# project_task
+# Project_task
 
 The app consists of the following main components:
 
@@ -38,12 +38,12 @@ TaskM: Allows users to create and manage tasks. Shows user profile details if au
 Footer: Simple footer 
 
 
-Routes
+# Routes
 
 Home (/): Displays the HomePage component.
 Task (/task): Displays the TaskM component.
 
-Authentication with Auth0
+# Authentication with Auth0
 
 Authentication in this app is handled using Auth0. The app integrates with Auth0 using the @auth0/auth0-vue plugin.
 
@@ -56,7 +56,7 @@ Styling
 
 The application uses scoped CSS for each component. External styles such as Google Fonts and FontAwesome are imported directly into the components or the main CSS file.
 
-Contribution
+# Contribution
 
 Feel free to fork this repository, add your features or improvements and create a pull request. We love to see community contributions!
 
