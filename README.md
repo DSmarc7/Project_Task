@@ -37,13 +37,37 @@ HomePage: Dashboard to display greetings and information based on user authentic
 TaskM: Allows users to create and manage tasks. Shows user profile details if authenticated.
 Footer: Simple footer 
 
+# Task Management Application
 
-# Routes
+This is a task management application built using Vue.js, designed to help you stay organized and boost your productivity. Below are some of its key features:
+
+Task Creation: Easily create new tasks with titles and categories.
+
+Category Selection: Categorize tasks as "Business" or "Personal" for better organization.
+
+Filtering: Filter tasks based on their status (All, To Do, Completed) to focus on what matters most.
+
+Sorting: Sort tasks by date (Earliest, Oldest) or by category (Business, Personal) to suit your workflow.
+
+Task History: Keep track of task history, including when tasks were started and completed.
+
+User Profile: Personalize your experience by providing your name and viewing your user profile.
+
+Persistent Data: Your tasks and user preferences are saved locally, so you won't lose your data when you close the app.
+
+Beautiful UI: Enjoy an intuitive and visually appealing user interface for an enhanced user experience.
+
+Responsive Design: The app is designed to work seamlessly on both desktop and mobile devices.
+
+Authentication: Securely log in with authentication provided by Auth0 for a safe and private user experience.
+
+
+## Routes
 
 Home (/): Displays the HomePage component.
 Task (/task): Displays the TaskM component.
 
-# Authentication with Auth0
+## Authentication with Auth0
 
 Authentication in this app is handled using Auth0. The app integrates with Auth0 using the @auth0/auth0-vue plugin.
 
@@ -58,7 +82,7 @@ Styling
 
 The application uses scoped CSS for each component. External styles such as Google Fonts and FontAwesome are imported directly into the components or the main CSS file.
 
-# Contribution
+## Contribution
 
 Feel free to fork this repository, add your features or improvements and create a pull request. We love to see community contributions!
 
