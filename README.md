@@ -67,6 +67,8 @@ Sorting: Sort tasks by date (Earliest, Oldest) or by category (Business, Persona
 
 Task History: Keep track of task history, including when tasks were started and completed.
 
+Edit Task: You can edit task by clicking on task name
+
 User Profile: Personalize your experience by providing your name and viewing your user profile.
 
 Persistent Data: Your tasks and user preferences are saved locally, so you won't lose your data when you close the app.
