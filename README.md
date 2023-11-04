@@ -27,6 +27,22 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## Dependencies to install
+### Install Vue Router (for routing):
+```
+npm install vue-router
+```
+### Install Auth0 (for authentication):
+```
+npm install @auth0/auth0-vue
+```
+### Install Font Awesome Icons (for icons):
+```
+npm install @fortawesome/fontawesome-free
+
+```
+
+
 # Project_task
 
 The app consists of the following main components:
@@ -37,7 +53,7 @@ HomePage: Dashboard to display greetings and information based on user authentic
 TaskM: Allows users to create and manage tasks. Shows user profile details if authenticated.
 Footer: Simple footer 
 
-# Task Management Application
+## Task Management Application
 
 This is a task management application built using Vue.js, designed to help you stay organized and boost your productivity. Below are some of its key features:
 
@@ -62,12 +78,12 @@ Responsive Design: The app is designed to work seamlessly on both desktop and mo
 Authentication: Securely log in with authentication provided by Auth0 for a safe and private user experience.
 
 
-## Routes
+### Routes
 
 Home (/): Displays the HomePage component.
 Task (/task): Displays the TaskM component.
 
-## Authentication with Auth0
+### Authentication with Auth0
 
 Authentication in this app is handled using Auth0. The app integrates with Auth0 using the @auth0/auth0-vue plugin.
 
@@ -82,7 +98,7 @@ Styling
 
 The application uses scoped CSS for each component. External styles such as Google Fonts and FontAwesome are imported directly into the components or the main CSS file.
 
-## Contribution
+### Contribution
 
 Feel free to fork this repository, add your features or improvements and create a pull request. We love to see community contributions!
 
