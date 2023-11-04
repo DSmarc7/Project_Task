@@ -50,7 +50,9 @@ Authentication in this app is handled using Auth0. The app integrates with Auth0
 To integrate your Auth0 account:
 
 1.Sign up for an Auth0 account.
+
 2.Create an application on the Auth0 dashboard.
+
 3.Update the domain and clientId in main.js with your Auth0 application details.
 Styling
 
