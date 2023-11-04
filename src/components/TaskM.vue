@@ -53,19 +53,21 @@
 			</form>
 		</section>
 		<section class="filter-sort-section">
-      <label for="filter-status">Filter by Status:</label>
-      <select v-model="filterStatus" id="filter-status">
-        <option value="all">All</option>
-        <option value="to-do">To Do</option>
-        <option value="completed">Completed</option>
-      </select>
+    <label for="filter-status">Filter by Status:</label>
+    <select v-model="filterStatus" id="filter-status">
+      <option value="all">All</option>
+      <option value="to-do">To Do</option>
+      <option value="completed">Completed</option>
+    </select>
 
-      <label for="sort-by">Sort by:</label>
-      <select v-model="sortBy" id="sort-by">
-        <option value="date">Date</option>
-        <option value="priority">Priority</option>
-      </select>
-    </section>
+    <label for="sort-by">Sort by:</label>
+    <select v-model="sortBy" id="sort-by">
+      <option value="earliest">Earliest</option>
+      <option value="oldest">Oldest</option>
+      <option value="business">Business</option>
+      <option value="personal">Personal</option>
+    </select>
+  </section>
 
 		<section class="todo-list">
 			<h3>TODO LIST</h3>
@@ -102,10 +104,11 @@
 
 		<section class="task-history">
       <h3>TASK HISTORY</h3>
-      <div v-for="todo in completedTasks" :key="todo.createdAt">
+      <div v-for="todo in taskHistory" :key="todo.createdAt">
         <span>{{ todo.content }}</span>
         <span>
-          Completed on: {{ new Date(todo.createdAt).toLocaleString() }}
+          {{ todo.status === 'completed' ? 'Completed' : 'Started' }}
+          on: {{ new Date(todo.createdAt).toLocaleString() }}
         </span>
       </div>
     </section>
@@ -136,13 +139,14 @@ export default {
 });
 
 const filterStatus = ref("all");
-    const sortBy = ref("date");
+
+    const sortBy = ref('earliest'); 
 
     const filteredTodos = computed(() => {
       switch (filterStatus.value) {
-        case "to-do":
+        case 'to-do':
           return todos.value.filter((t) => !t.done);
-        case "completed":
+        case 'completed':
           return todos.value.filter((t) => t.done);
         default:
           return todos.value;
@@ -151,12 +155,21 @@ const filterStatus = ref("all");
 
     const filteredAndSortedTodos = computed(() => {
       const sortedTodos = [...filteredTodos.value];
-      if (sortBy.value === "priority") {
-        // Placeholder logic: You'll need to adjust based on how you're determining task priority.
-        sortedTodos.sort((a, b) => (a.priority > b.priority ? 1 : -1));
-      } else {
+      if (sortBy.value === 'earliest') {
         sortedTodos.sort(
           (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+      } else if (sortBy.value === 'oldest') {
+        sortedTodos.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+      } else if (sortBy.value === 'business') {
+        sortedTodos.sort((a, b) =>
+          a.category === 'business' ? -1 : b.category === 'business' ? 1 : 0
+        );
+      } else if (sortBy.value === 'personal') {
+        sortedTodos.sort((a, b) =>
+          a.category === 'personal' ? -1 : b.category === 'personal' ? 1 : 0
         );
       }
       return sortedTodos;
@@ -164,6 +177,16 @@ const filterStatus = ref("all");
 
     const completedTasks = computed(() => {
       return todos.value.filter((t) => t.done);
+    });
+
+    const taskHistory = computed(() => {
+      return todos.value.map((todo) => {
+        return {
+          content: todo.content,
+          status: todo.done ? 'completed' : 'started',
+          createdAt: todo.createdAt,
+        };
+      });
     });
 
 
@@ -216,6 +239,7 @@ const filterStatus = ref("all");
       sortBy,
       filteredAndSortedTodos,
       completedTasks,
+      taskHistory,
     };
   },
 };
@@ -225,13 +249,32 @@ const filterStatus = ref("all");
 .title{
 	gap: 5px;
 }
-.filter-sort-section{
-	padding-left: 5px;
-	gap: 5px;
-	font-size: 15px;
-}
-#filter-status{
-	padding-left: 5px;
+.filter-sort-section select {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #FFF;
+    background-color: royalblue;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    width: 100%;
+  }
+
+  .filter-sort-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 2px;
+  }
+.task-history span {
+  padding-right: 6px;
 }
 </style>
 
